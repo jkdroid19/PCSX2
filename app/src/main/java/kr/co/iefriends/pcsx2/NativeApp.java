@@ -1,6 +1,9 @@
 package kr.co.iefriends.pcsx2;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.view.Surface;
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -69,4 +72,19 @@ public class NativeApp {
 	public static native boolean loadStateFromSlot(int slot);
 	public static native String getGamePathSlot(int slot);
 	public static native byte[] getImageSlot(int slot);
+
+	// Call jni
+	public static int openContentUri(String uriString) {
+		Context _context = getContext();
+		if(_context != null) {
+			ContentResolver _contentResolver = _context.getContentResolver();
+			try {
+				ParcelFileDescriptor filePfd = _contentResolver.openFileDescriptor(Uri.parse(uriString), "r");
+				if (filePfd != null) {
+					return filePfd.detachFd();  // Take ownership of the fd.
+				}
+			} catch (Exception ignored) {}
+		}
+		return -1;
+	}
 }
