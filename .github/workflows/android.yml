@@ -22,7 +22,7 @@ jobs:
     - name: Download PCSX2 source code
       run: |
         cd ${{ github.workspace }}
-        git clone --branch ${{ github.event.inputs.branch || 'master' }} https://github.com/XDeathUserX/PCSX2-Android.git --recursive
+        git clone --branch ${{ github.event.inputs.branch || 'master' }} https://github.com/jkdroid19/PCSX2.git --recursive
         cd PCSX2-Android
         
 
