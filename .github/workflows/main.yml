@@ -2,7 +2,10 @@ name: Build APK
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - master
+    tags:
+      - 'v*'
 
 jobs:
   build:
